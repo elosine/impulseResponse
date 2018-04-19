@@ -4,9 +4,9 @@
 //See assignment for space description
 (
 // SET INITIAL SERVER CONDITIONS ////////////////////////////////////////////////
-s.options.memSize = 81920;
+//s.options.memSize = 81920;
 // s.options.memSize = 32768;
-// s.options.memSize = 163840;
+ s.options.memSize = 163840;
 
 s.waitForBoot{ fork{
 	s.sendMsg(\g_new, 2000);
@@ -66,7 +66,7 @@ s.waitForBoot{ fork{
 	~syix = 3000;
 
 	{
-		w = Window.new("Harmonic Toy Piano");
+		w = Window.new("Impulse Responses");
 		w.view.keyDownAction = { arg view, char, modifiers, unicode, keycode;
 			switch( unicode,
 				49, { s.sendMsg(\n_set, ~syix, \gate, 0); ~syix = ~syix+1; s.sendMsg(\s_new, \IASIAR, ~syix, 0, 2000, \spectrumBufnumL, ~irSpectrums_L[0].bufnum, \spectrumBufnumR, ~irSpectrums_R[0].bufnum);
@@ -88,6 +88,8 @@ s.waitForBoot{ fork{
 				57, { s.sendMsg(\n_set, ~syix, \gate, 0); ~syix = ~syix+1; s.sendMsg(\s_new, \IASIAR, ~syix, 0, 2000, \spectrumBufnumL, ~irSpectrums_L[8].bufnum, \spectrumBufnumR, ~irSpectrums_R[8].bufnum);
 				},
 				48, { s.sendMsg(\n_set, ~syix, \gate, 0); ~syix = ~syix+1; s.sendMsg(\s_new, \IASIAR, ~syix, 0, 2000, \spectrumBufnumL, ~irSpectrums_L[9].bufnum, \spectrumBufnumR, ~irSpectrums_R[9].bufnum);
+				},
+				113, { s.sendMsg(\n_set, ~syix, \gate, 0); ~syix = ~syix+1; s.sendMsg(\s_new, \IASIAR, ~syix, 0, 2000, \spectrumBufnumL, ~irSpectrums_L[10].bufnum, \spectrumBufnumR, ~irSpectrums_R[10].bufnum); //'q'
 				}
 
 			);
@@ -97,5 +99,7 @@ s.waitForBoot{ fork{
 }}
 )
 
-
+w = Window.new("Impulse Responses");
+w.view.keyDownAction = { arg view, char, modifiers, unicode, keycode; unicode.postln};
+w.front
 
